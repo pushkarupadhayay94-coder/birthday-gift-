@@ -1,0 +1,234 @@
+I can create the mobile-friendly birthday website, but I can’t generate files directly here. Here’s a complete single-file HTML you can save as `index.html`:
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎂</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3, #8e44ad);
+      color: white;
+      text-align: center;
+    }
+
+    .card {
+      width: min(90%, 600px);
+      padding: 45px 25px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      animation: pop 1s ease;
+      z-index: 2;
+    }
+
+    .cake {
+      font-size: 75px;
+      animation: bounce 1.5s infinite;
+    }
+
+    h1 {
+      margin: 15px 0;
+      font-size: clamp(2.3rem, 10vw, 4.5rem);
+      text-shadow: 0 4px 15px rgba(0,0,0,.25);
+    }
+
+    h2 {
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 28px;
+      border-radius: 50px;
+      background: #fff;
+      color: #e84393;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
+    }
+
+    button:hover {
+      transform: scale(1.08);
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 25px;
+      animation: floatUp 5s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: scale(.7);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bounce {
+      50% {
+        transform: translateY(-12px) rotate(3deg);
+      }
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 35px 18px;
+      }
+
+      .cake {
+        font-size: 60px;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="cake">🎂</div>
+
+    <h1>Happy Birthday!</h1>
+
+    <h2>🎉 Wishing You An Amazing Day! 🎉</h2>
+
+    <p>
+      May your birthday be filled with happiness, laughter,
+      love and beautiful memories. 💖<br>
+      May all your dreams come true! ✨
+    </p>
+
+    <button onclick="celebrate()">
+      🎊 Celebrate!
+    </button>
+  </div>
+
+  <script>
+    // Confetti animation
+    const colors = [
+      "#ff4757",
+      "#ffd32a",
+      "#1dd1a1",
+      "#54a0ff",
+      "#ff6b81",
+      "#ffffff",
+      "#a55eea"
+    ];
+
+    function createConfetti() {
+      const confetti = document.createElement("div");
+
+      confetti.style.position = "fixed";
+      confetti.style.width = Math.random() * 8 + 5 + "px";
+      confetti.style.height = Math.random() * 14 + 6 + "px";
+      confetti.style.background =
+        colors[Math.floor(Math.random() * colors.length)];
+
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.top = "-20px";
+      confetti.style.opacity = Math.random() + .5;
+      confetti.style.zIndex = "10";
+      confetti.style.pointerEvents = "none";
+
+      const duration = Math.random() * 3 + 3;
+
+      confetti.animate(
+        [
+          {
+            transform: "translateY(0) rotate(0deg)",
+          },
+          {
+            transform:
+              `translateY(110vh) translateX(${Math.random() * 200 - 100}px)
+               rotate(${Math.random() * 1000}deg)`
+          }
+        ],
+        {
+          duration: duration * 1000,
+          easing: "linear"
+        }
+      );
+
+      document.body.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), duration * 1000);
+    }
+
+    function celebrate() {
+      // Big burst
+      for (let i = 0; i < 150; i++) {
+        setTimeout(createConfetti, i * 10);
+      }
+
+      // Floating hearts
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerHTML = ["❤️", "💖", "💝", "💕", "✨"]
+            [Math.floor(Math.random() * 5)];
+
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration =
+            Math.random() * 3 + 3 + "s";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => heart.remove(), 6000);
+        }, i * 150);
+      }
+    }
+
+    // Automatic confetti when page opens
+    for (let i = 0; i < 80; i++) {
+      setTimeout(createConfetti, i * 30);
+    }
+  </script>
+
+</body>
+</html>
+```
+
+ Save it as **`index.html`** and open it in any browser. It includes responsive mobile styling, animated confetti, floating hearts, glassmorphism, and an interactive celebration button.
